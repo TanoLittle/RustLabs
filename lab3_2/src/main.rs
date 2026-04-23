@@ -49,21 +49,21 @@ trait MySlug{
 
 impl MySlug for String {
     fn is_slug(&self) -> bool{
-        slugify(&self) == *self
+        slugify(self) == *self
     }
 
     fn to_slug(&self) -> String{
-        slugify(&self)
+        slugify(self)
     }
 }
 
-impl MySlug for str {
+impl MySlug for &str {
     fn is_slug(&self) -> bool{
-        slugify(&self) == self
+        slugify(self) == *self
     }
 
     fn to_slug(&self) -> String{
-        slugify(&self)
+        slugify(self)
     }
 }
 
