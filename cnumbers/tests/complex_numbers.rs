@@ -25,28 +25,28 @@ pub fn test_display() {
     assert_eq!(format!("{b}"), "4.2 + 4.2i");
 }
 
-// #[test]
-// pub fn test_add() {
-//     // implement Add trait
-//     // remember to set: type Output = Self;
-//     // see: https://github.com/pretzelhammer/rust-blog/blob/master/posts/tour-of-rusts-standard-library-traits.md#add--addassign
+#[test]
+pub fn test_add() {
+    // implement Add trait
+    // remember to set: type Output = Self;
+    // see: https://github.com/pretzelhammer/rust-blog/blob/master/posts/tour-of-rusts-standard-library-traits.md#add--addassign
 
-//     let a = ComplexNumber::new(1.0, 2.0);
-//     let b = ComplexNumber::new(1.0, 2.0);
+    let a = ComplexNumber::new(1.0, 2.0);
+    let b = ComplexNumber::new(1.0, 2.0);
 
-//     let c = a + b;
+    let c = a + b;
 
-//     assert_eq!(c.to_tuple(), (2.0, 4.0));
-// }
+    assert_eq!(c.to_tuple(), (2.0, 4.0));
+}
 
-// #[test]
-// pub fn test_add_with_real() {
-//     // set RHS (rihgt hand side) type for Add!!! It's default value is Self, but it can be changed to anything
-//     let a = ComplexNumber::new(1.0, 2.0);
-//     let b = a + 10.0;
+#[test]
+pub fn test_add_with_real() {
+    // set RHS (rihgt hand side) type for Add!!! It's default value is Self, but it can be changed to anything
+    let a = ComplexNumber::new(1.0, 2.0);
+    let b = a + 10.0;
 
-//     assert_eq!(b.to_tuple(), (11.0, 2.0))
-// }
+    assert_eq!(b.to_tuple(), (11.0, 2.0))
+}
 
 // #[test]
 // pub fn test_inc_add() {
