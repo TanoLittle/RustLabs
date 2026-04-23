@@ -48,79 +48,79 @@ pub fn test_add_with_real() {
     assert_eq!(b.to_tuple(), (11.0, 2.0))
 }
 
-// #[test]
-// pub fn test_inc_add() {
-//     let mut a = ComplexNumber::new(1.0, 2.0);
-//     a += ComplexNumber::new(2.0, 4.0);
+#[test]
+pub fn test_inc_add() {
+    let mut a = ComplexNumber::new(1.0, 2.0);
+    a += ComplexNumber::new(2.0, 4.0);
 
-//     assert_eq!(a.to_tuple(), (3.0, 6.0))
-// }
+    assert_eq!(a.to_tuple(), (3.0, 6.0))
+}
 
-// #[test]
-// pub fn test_add_with_reference() {
-//     // references for Rust are new types: you must define the trait for them as RHS
-//     let a = ComplexNumber::new(1.0, 2.0);
-//     let b = ComplexNumber::new(1.0, 2.0);
+#[test]
+pub fn test_add_with_reference() {
+    // references for Rust are new types: you must define the trait for them as RHS
+    let a = ComplexNumber::new(1.0, 2.0);
+    let b = ComplexNumber::new(1.0, 2.0);
 
-//     let c = a + &b;
+    let c = a + &b;
 
-//     assert_eq!(c.to_tuple(), (2.0, 4.0))
-// }
+    assert_eq!(c.to_tuple(), (2.0, 4.0))
+}
 
-// #[test]
-// pub fn test_add_reference_with_reference() {
-//     let a = ComplexNumber::new(1.0, 2.0);
-//     let b = ComplexNumber::new(1.0, 2.0);
+#[test]
+pub fn test_add_reference_with_reference() {
+    let a = ComplexNumber::new(1.0, 2.0);
+    let b = ComplexNumber::new(1.0, 2.0);
 
-//     let c = &a + &b;
+    let c = &a + &b;
 
-//     assert_eq!(c.to_tuple(), (2.0, 4.0))
-// }
+    assert_eq!(c.to_tuple(), (2.0, 4.0))
+}
 
-// #[test]
-// pub fn test_enable_copy() {
-//     // why this code won't compile? Read carefully the error message
-//     // what do we nee to do to make it work?
-//     let a = ComplexNumber::new(1.0, 2.0);
+#[test]
+pub fn test_enable_copy() {
+    // why this code won't compile? Read carefully the error message
+    // what do we nee to do to make it work?
+    let a = ComplexNumber::new(1.0, 2.0);
 
-//     let b = a + a;
+    let b = a + a;
 
-//     assert_eq!(b.to_tuple(), (2.0, 4.0));
-// }
+    assert_eq!(b.to_tuple(), (2.0, 4.0));
+}
 
-// #[test]
-// pub fn test_default_values() {
-//     // If we want to create an array of complex numbers we need to initialize values with something
-//     // Arrays can't be not initialized in Rust
-//     let array: [ComplexNumber; 10] = Default::default();
+#[test]
+pub fn test_default_values() {
+    // If we want to create an array of complex numbers we need to initialize values with something
+    // Arrays can't be not initialized in Rust
+    let array: [ComplexNumber; 10] = Default::default();
 
-//     for el in array.as_slice() {
-//         assert_eq!(el.to_tuple(), (0.0, 0.0));
-//     }
-// }
+    for el in array.as_slice() {
+        assert_eq!(el.to_tuple(), (0.0, 0.0));
+    }
+}
 
-// // commented out again when implementing TryInto see note below
-// //#[test]
-// //pub fn test_convert_into_real() {
-// //    let a = ComplexNumber::from_real(1.0);
-// //    let b: f64 = a.into();
-// //
-// //    assert_eq!(b, 1.0);
-// //
-// //}
+// commented out again when implementing TryInto see note below
+#[test]
+pub fn test_convert_into_real() {
+   let a = ComplexNumber::from_real(1.0);
+   let b: f64 = a.into();
+
+   assert_eq!(b, 1.0);
+
+}
 
 // // commented out again when implementing TryInto because it's covered by TryInto see note below
-// //#[test]
-// //pub fn test_panic_when_impossible_to_convert_to_real() {
-// //    // we can convert into a real only if imag is 0
-// //    let a = ComplexNumber::new(1.0, 2.0);
-// //
-// //    let result = std::panic::catch_unwind(|| {
-// //        let _: f64 = a.into();
-// //    });
-// //
-// //    assert!(result.is_err());
-// //}
+#[test]
+pub fn test_panic_when_impossible_to_convert_to_real() {
+   // we can convert into a real only if imag is 0
+   let a = ComplexNumber::new(1.0, 2.0);
+
+   let result = std::panic::catch_unwind(|| {
+       let _: f64 = a.into();
+   });
+
+   assert!(result.is_err());
+}
 
 // #[test]
 // pub fn test_try_into_f64() {
