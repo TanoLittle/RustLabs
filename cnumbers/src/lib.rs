@@ -2,14 +2,23 @@ pub mod solution {
 
     use std::fmt::Formatter;
     use std::fmt::Display;
+    use std::hash::Hasher;
     use std::ops::Add;
     use std::ops::AddAssign;
+    use std::hash::Hash;
 
-    #[derive(Clone, Copy, Default)]
+    #[derive(Clone, Copy, Default, Debug)]
     pub struct ComplexNumber{
         real: f64,
         imag: f64
     }
+
+    #[derive(Debug, PartialEq)]
+    pub enum ComplexNumberError{
+        ImaginaryNotZero
+    }
+
+    
 
     impl ComplexNumber{
         pub fn new(real: f64, imag: f64) -> Self{
@@ -32,6 +41,9 @@ pub mod solution {
             (self.real, self.imag)
         }
 
+        pub fn module(&self) -> f64{
+            (self.real.powi(2) + self.imag.powi(2)).sqrt()
+        }
 
 
 
@@ -87,23 +99,77 @@ pub mod solution {
         }
     }
 
-    // impl From<f64> for ComplexNumber{
-    //     fn from(value: f64) -> ComplexNumber {
-    //         ComplexNumber::from_real(value)
+    // impl From<ComplexNumber> for f64 {
+    // fn from(c: ComplexNumber) -> f64 {
+    //     if c.imag() != 0.0 {
+    //         panic!("ja")
     //     }
+    //     c.real()
     // }
 
-}
+    impl TryFrom<ComplexNumber> for f64{
+        type Error = ComplexNumberError;
 
-
-
-use solution::ComplexNumber;
-
-impl From<ComplexNumber> for f64 {
-    fn from(c: ComplexNumber) -> f64 {
-        if c.imag() != 0.0 {
-            panic!("ja")
+        fn try_from(c: ComplexNumber) -> Result<Self, Self::Error>{
+            if c.imag() != 0.0 {
+                Err(ComplexNumberError::ImaginaryNotZero)
+            }
+            else {
+                Ok(c.real())
+            }
         }
-        c.real()
     }
+
+    impl From<f64> for ComplexNumber {
+        fn from (c: f64) -> ComplexNumber{
+            ComplexNumber::from_real(c)
+        }
+    }
+
+    impl PartialEq for ComplexNumber{
+
+        fn eq(&self, other: &Self) -> bool {
+            self.real() == other.real() && self.imag() == other.imag()
+        }
+    }
+
+    impl PartialOrd for ComplexNumber{
+        fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+            Some(self.cmp(other))
+        }
+    }
+
+    impl Ord for ComplexNumber{
+        fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+            self.module().total_cmp(&other.module())
+        }
+    }
+
+    impl Eq for ComplexNumber{}
+
+    impl AsRef<f64> for ComplexNumber {
+        fn as_ref(&self) -> &f64 {
+            &self.real
+        }
+    }
+
+    impl AsMut<f64> for ComplexNumber {
+        fn as_mut(&mut self) -> &mut f64 {
+            &mut self.real
+        }
+    }
+
+    impl Hash for ComplexNumber {
+        fn hash<H: Hasher>(&self, state: &mut H) {
+            state.write_u64(self.real().to_bits());
+            state.write_u64(self.imag().to_bits());
+        }
+    }
+
 }
+
+
+
+
+
+// use solution::ComplexNumber;
